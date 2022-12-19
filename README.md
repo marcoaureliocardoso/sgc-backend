@@ -1,2 +1,2 @@
 # sgc-backend
-Spring/Angular version of SGC
+Spring version of SGC Backend https://github.com/LDI-Ufes/sgc
