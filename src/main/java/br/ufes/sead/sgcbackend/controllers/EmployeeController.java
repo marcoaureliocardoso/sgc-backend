@@ -9,14 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.ufes.sead.sgcbackend.dtos.EmployeeDto;
 import br.ufes.sead.sgcbackend.models.Employee;
 import br.ufes.sead.sgcbackend.repositories.EmployeeRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/api/v1/employees")
@@ -37,9 +40,8 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public Employee store(@RequestBody EmployeeDto dto) {
-        Employee employee = new Employee(dto.getCpf(), dto.getName(), dto.getGender(), dto.getEmail());
-
+    public @ResponseBody Employee store(@Valid @RequestBody Employee employee) {
+        employeeRepository.save(employee);
         return employee;
     }
 
@@ -56,17 +58,21 @@ public class EmployeeController {
     public String edit(@PathVariable int id) {
         return "Edit Employee 1";
     }
-
-    @PatchMapping(value = "/{id}")
-    public Employee update(@PathVariable int id, @RequestBody EmployeeDto entity) {
-        // TODO: process POST request
-
-        return null;
+    
+    @PutMapping(path = "/{id}")
+    public Employee update(@PathVariable Integer id, @Valid @RequestBody Employee employee) {
+        if (!employeeRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found");
+        }
+        return employeeRepository.save(employee);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public String destroy(@PathVariable int id) {
-        return "Delete Employee 1";
+    @DeleteMapping(path = "/{id}")
+    public void destroy(@PathVariable int id) {
+        if (!employeeRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found");
+        }
+        employeeRepository.deleteById(id);
     }
 
 }

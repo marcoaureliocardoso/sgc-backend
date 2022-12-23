@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "phones")
@@ -20,9 +21,12 @@ public class Phone {
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
+    @NotBlank
     @Column(name = "area_code")
     private String areaCode;
+    @NotBlank
     private String number;
+    @NotBlank
     private String type;
     @Column(name = "created_at")
     private Date createdAt;

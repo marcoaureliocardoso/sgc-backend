@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "bonds")
@@ -24,8 +25,10 @@ public class Bond {
     @JoinColumn(name = "role_id")
     private Role role;
     private Boolean volunteer;
+    @NotBlank
     @Column(name = "hiring_process")
     private String hiringProcess;
+    @NotBlank
     private Date begin;
     @Column(name = "terminated_at")
     private Date terminatedAt;

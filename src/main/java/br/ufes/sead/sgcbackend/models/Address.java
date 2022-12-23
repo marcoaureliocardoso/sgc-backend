@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "addresses")
@@ -13,13 +14,20 @@ public class Address {
     @Id
     @Column(name = "employee_id")
     private int id;
+    @NotBlank
     private String street;
+    @NotBlank
     private String complement;
+    @NotBlank
     private String number;
+    @NotBlank
     private String district;
+    @NotBlank
     @Column(name = "zip_code")
     private String zipCode;
+    @NotBlank
     private String state;
+    @NotBlank
     private String city;
     @Column(name = "created_at")
     private Date createdAt;

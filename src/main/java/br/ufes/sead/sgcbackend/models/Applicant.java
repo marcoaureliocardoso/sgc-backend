@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "applicants")
@@ -17,12 +18,17 @@ public class Applicant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank
     private String name;
+    @NotBlank
     private String email;
+    @NotBlank
     @Column(name = "area_code")
     private String areaCode;
     private String landline;
+    @NotBlank
     private String mobile;
+    @NotBlank
     @Column(name = "hiring_process")
     private String hiringProcess;
     @ManyToOne

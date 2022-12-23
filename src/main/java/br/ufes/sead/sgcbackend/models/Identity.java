@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "identities")
@@ -18,10 +19,14 @@ public class Identity {
     @ManyToOne
     @JoinColumn(name = "type_id")
     private DocumentType documentType;
+    @NotBlank
     private String number;
+    @NotBlank
     @Column(name = "issue_date")
     private Date issueDate;
+    @NotBlank
     private String issuer;
+    @NotBlank
     @Column(name = "issuer_state")
     private String issuerState;
     @Column(name = "created_at")

@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "course_classes")
@@ -20,7 +21,9 @@ public class CourseClass {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
+    @NotBlank
     private String code;
+    @NotBlank
     private String name;
     private String cpp;
     @Column(name = "created_at")
