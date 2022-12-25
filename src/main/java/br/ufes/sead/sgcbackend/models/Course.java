@@ -1,6 +1,7 @@
 package br.ufes.sead.sgcbackend.models;
 
 import java.util.Date;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,6 +28,8 @@ public class Course {
     private Date createdAt;
     @Column(name = "updated_at")
     private Date updatedAt;
+
+    private static final Set<String> sortKeysSet = Set.of("id", "name", "degree");
 
     public Course() {
         // Required by Hibernate
@@ -62,6 +65,10 @@ public class Course {
 
     public void setLmsUrl(String lmsUrl) {
         this.lmsUrl = lmsUrl;
+    }
+
+    public static Set<String> getSortKeysSet() {
+        return sortKeysSet;
     }
 
 }

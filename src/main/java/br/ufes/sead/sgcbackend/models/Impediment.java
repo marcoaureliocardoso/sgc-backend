@@ -1,6 +1,7 @@
 package br.ufes.sead.sgcbackend.models;
 
 import java.util.Date;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,6 +36,8 @@ public class Impediment {
     private Date createdAt;
     @Column(name = "updated_at")
     private Date updatedAt;
+
+    private static final Set<String> sortKeysSet = Set.of("id", "createdAt", "closedAt");
 
     public Impediment() {
         // Required by Hibernate
@@ -78,6 +81,10 @@ public class Impediment {
 
     public void setClosedAt(Date closedAt) {
         this.closedAt = closedAt;
+    }
+
+    public static Set<String> getSortKeysSet() {
+        return sortKeysSet;
     }
 
 }

@@ -1,6 +1,7 @@
 package br.ufes.sead.sgcbackend.models;
 
 import java.util.Date;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,6 +37,8 @@ public class Bond {
     private Date createdAt;
     @Column(name = "updated_at")
     private Date updatedAt;
+
+    private static final Set<String> sortKeysSet = Set.of("id", "volunteer", "hiringProcess", "begin");
 
     public Bond() {
         // Required by Hibernate
@@ -87,6 +90,10 @@ public class Bond {
 
     public void setTerminatedAt(Date terminatedAt) {
         this.terminatedAt = terminatedAt;
+    }
+
+    public static Set<String> getSortKeysSet() {
+        return sortKeysSet;
     }
 
 }

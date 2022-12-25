@@ -3,6 +3,10 @@ package br.ufes.sead.sgcbackend.controllers;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -27,18 +32,30 @@ public class UserTypeController {
     private UserTypeRepository userTypeRepository;
 
     @GetMapping
-    public Iterable<UserType> index() {
+    public Iterable<UserType> list(
+            @RequestParam(name = "paginated", defaultValue = "true") String paginated,
+            @RequestParam(name = "page", defaultValue = "0") Integer page,
+            @RequestParam(name = "sortBy", defaultValue = "name") String sortBy,
+            @RequestParam(name = "sortDirection", defaultValue = "asc") String sortDirection) {
+        if (!paginated.equals("false")) {
+            String sortKey = (UserType.getSortKeysSet().contains(sortBy)) ? sortBy : "name";
+            Direction direction = (sortDirection.equals("asc")) ? Direction.ASC : Direction.DESC;
+            Pageable pageable = PageRequest.of(page, 10, Sort.by(direction, sortKey));
+
+            return userTypeRepository.findAll(pageable);
+        }
+
         return userTypeRepository.findAll();
     }
 
     @PostMapping
-    public @ResponseBody UserType store(@Valid @RequestBody UserType userType) {
+    public @ResponseBody UserType create(@Valid @RequestBody UserType userType) {
         userTypeRepository.save(userType);
         return userType;
     }
 
     @GetMapping(path = "/{id}")
-    public UserType show(@PathVariable Integer id) {
+    public UserType read(@PathVariable Integer id) {
         Optional<UserType> userType = userTypeRepository.findById(id);
         if (userType.isPresent()) {
             return userType.get();

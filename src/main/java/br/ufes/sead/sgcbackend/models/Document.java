@@ -1,6 +1,7 @@
 package br.ufes.sead.sgcbackend.models;
 
 import java.util.Date;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,6 +37,8 @@ public class Document {
     @Column(name = "file_data")
     private String fileData;
 
+    private static final Set<String> sortKeysSet = Set.of("id", "fileName", "relatedType");
+
     public Document() {
         // Required by Hibernate
     }
@@ -70,6 +73,10 @@ public class Document {
 
     public void setDocumentType(DocumentType documentType) {
         this.documentType = documentType;
+    }
+
+    public static Set<String> getSortKeysSet() {
+        return sortKeysSet;
     }
 
 }

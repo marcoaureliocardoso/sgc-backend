@@ -1,6 +1,7 @@
 package br.ufes.sead.sgcbackend.models;
 
 import java.util.Date;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +34,8 @@ public class Identity {
     private Date createdAt;
     @Column(name = "updated_at")
     private Date updatedAt;
+
+    private static final Set<String> sortKeysSet = Set.of("id", "number", "issueDate", "issuer", "issuerState");
 
     public Identity() {
         // Required by Hibernate
@@ -76,6 +79,10 @@ public class Identity {
 
     public void setIssuerState(String issuerState) {
         this.issuerState = issuerState;
+    }
+
+    public static Set<String> getSortKeysSet() {
+        return sortKeysSet;
     }
 
 }

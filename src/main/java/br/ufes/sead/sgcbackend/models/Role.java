@@ -1,6 +1,7 @@
 package br.ufes.sead.sgcbackend.models;
 
 import java.util.Date;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,6 +31,8 @@ public class Role {
     private Date createdAt;
     @Column(name = "updated_at")
     private Date updatedAt;
+
+    private static final Set<String> sortKeysSet = Set.of("id", "name", "grant_type");
 
     public Role() {
         // Required by Hibernate
@@ -65,6 +68,10 @@ public class Role {
 
     public void setGrantValue(Integer grantValue) {
         this.grantValue = grantValue;
+    }
+
+    public static Set<String> getSortKeysSet() {
+        return sortKeysSet;
     }
 
 }

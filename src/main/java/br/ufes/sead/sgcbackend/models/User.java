@@ -1,6 +1,7 @@
 package br.ufes.sead.sgcbackend.models;
 
 import java.util.Date;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -39,6 +40,8 @@ public class User {
     @Column(name = "updated_at")
     private Date updatedAt;
 
+    private static final Set<String> sortKeysSet = Set.of("id", "login", "active");
+
     public User() {
         // Required by Hibernate
     }
@@ -73,6 +76,10 @@ public class User {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public static Set<String> getSortKeysSet() {
+        return sortKeysSet;
     }
 
 }
