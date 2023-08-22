@@ -20,41 +20,56 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "employees")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @NotBlank
     private String cpf;
+
     @NotBlank
     private String name;
+
     private Character gender;
+
     @NotBlank
     private String email;
+
     @Column(name = "created_at")
     private Instant createdAt;
+
     @Column(name = "updated_at")
     private Instant updatedAt;
+
     @OneToOne
     @PrimaryKeyJoinColumn
     private Address address;
+
     @OneToOne
     @PrimaryKeyJoinColumn
     private Identity identity;
+
     @OneToOne
     @PrimaryKeyJoinColumn
     private PersonalDetail personalDetail;
+
     @OneToOne
     @PrimaryKeyJoinColumn
     private Spouse spouse;
+
     @OneToOne
     @PrimaryKeyJoinColumn
     private BankAccount bankAccount;
+
     @OneToOne
     @PrimaryKeyJoinColumn
     private InstitutionalDetail institutionalDetail;
+
     @OneToMany
     private List<User> users = new ArrayList<>();
+
     @OneToMany
     private List<Bond> bonds = new ArrayList<>();
+    
     @OneToMany
     private List<Phone> phones = new ArrayList<>();
     

@@ -15,7 +15,7 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "courses")
 public class Course {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank
     private String name;

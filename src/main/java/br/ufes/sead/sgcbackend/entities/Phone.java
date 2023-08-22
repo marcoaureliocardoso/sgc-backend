@@ -16,7 +16,7 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "phones")
 public class Phone {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "employee_id")

@@ -17,7 +17,7 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "impediments")
 public class Impediment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "bond_id")
