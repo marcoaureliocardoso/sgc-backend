@@ -28,19 +28,24 @@ import jakarta.validation.Valid;
 public class EmployeeResource {
 
     private static final String EMPLOYEE_NOT_FOUND = "Employee not found";
-    @Autowired
-    private EmployeeRepository employeeRepository;
+
+    private final EmployeeRepository employeeRepository;
+
+    public EmployeeResource(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
 
     @GetMapping
     public Iterable<Employee> list(
             @RequestParam(name = "paginated", defaultValue = "true") String paginated,
             @RequestParam(name = "page", defaultValue = "0") Integer page,
+            @RequestParam(name = "size", defaultValue = "10") Integer size,
             @RequestParam(name = "sortBy", defaultValue = "name") String sortBy,
             @RequestParam(name = "sortDirection", defaultValue = "asc") String sortDirection) {
         if (!paginated.equals("false")) {
             String sortKey = (Employee.getSortKeysSet().contains(sortBy)) ? sortBy : "name";
             Direction direction = (sortDirection.equals("asc")) ? Direction.ASC : Direction.DESC;
-            Pageable pageable = PageRequest.of(page, 10, Sort.by(direction, sortKey));
+            Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortKey));
 
             return employeeRepository.findAll(pageable);
         }
